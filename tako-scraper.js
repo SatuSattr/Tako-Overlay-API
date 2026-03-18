@@ -6,9 +6,16 @@ const puppeteer = require('puppeteer-core');
  */
 async function getBrowser() {
     const isLocal = process.platform === 'win32' || process.platform === 'darwin';
-    const executablePath = isLocal 
-        ? (process.env.CHROME_PATH || "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe") 
-        : await chromium.executablePath();
+    
+    let executablePath;
+    if (isLocal) {
+        executablePath = process.env.CHROME_PATH || "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
+    } else {
+        // Fix for Vercel: Download chromium from remote if not found locally
+        executablePath = await chromium.executablePath(
+            `https://github.com/Sparticuz/chromium/releases/download/v${await chromium.version}/chromium-v${await chromium.version}-pack.tar`
+        );
+    }
 
     return await puppeteer.launch({
         args: isLocal ? [] : chromium.args,
