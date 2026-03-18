@@ -35,6 +35,11 @@ module.exports = async (req, res) => {
     // 3. Parameter validation
     let { overlay_key, type = 'milestone', api_key: providedApiKey } = req.query;
 
+    // Trik Keep-Warm: Jika type adalah ping, langsung balas tanpa jalankan Puppeteer
+    if (type === 'ping') {
+        return res.status(200).json({ status: 'warm', timestamp: new Date().toISOString() });
+    }
+
     // Hardening: Validasi tipe agar hanya 'milestone' atau 'leaderboard'
     const allowedTypes = ['milestone', 'leaderboard'];
     if (!allowedTypes.includes(type)) {
