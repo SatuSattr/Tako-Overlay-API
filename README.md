@@ -1,30 +1,29 @@
-# Tako.id Overlay Scraper API
+# Tako Overlay API
 
-A high-performance scraper API for [Tako.id](https://tako.id) streamer overlays (Milestone & Leaderboard). Built with **Puppeteer Core** and **@sparticuz/chromium-min**, specifically optimized for **Vercel Serverless Functions**.
+A high-performance scraper API for [Tako](https://tako.id) streamer overlays (Milestone & Leaderboard). Built with **Puppeteer Core** and **@sparticuz/chromium-min**, specifically optimized for **Vercel Serverless Functions**.
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FSatuSattr%2FTako-Overlay-API&env=API_KEY)
 
 ## 🚀 Features
 
--   **Milestone Scraping**: Extracts current amount, target, title, and start time.
--   **Leaderboard Scraping**: Extracts the top rankings (name and formatted amount) from the custom HTML overlay.
--   **Serverless Optimized**: Uses a lightweight Chromium build to stay within Vercel's 50MB function limit.
--   **Security**: Protected by an `x-api-key` header to prevent unauthorized public access.
--   **Edge Caching**: Responses are cached for 60 seconds to reduce browser launches and improve speed.
+- **Milestone Scraping**: Extracts current amount, target, title, and start time.
+- **Leaderboard Scraping**: Extracts the top rankings (name and formatted amount) from the custom HTML overlay.
+- **Serverless Optimized**: Uses a lightweight Chromium build to stay within Vercel's 50MB function limit.
+- **Security**: Protected by an `x-api-key` header to prevent unauthorized public access.
+- **Edge Caching**: Responses are cached for 60 seconds to reduce browser launches and improve speed.
 
 ## 🛠 Prerequisites
 
--   [Node.js](https://nodejs.org/) (v18 or newer recommended)
--   Google Chrome or Edge installed (for local testing only)
+- [Node.js](https://nodejs.org/) (v18 or newer recommended)
+- Google Chrome or Edge installed (for local testing only)
 
 ## 📦 Installation
 
 1.  Clone this repository:
+
     ```bash
     git clone https://github.com/SatuSattr/Tako-Overlay-API.git
     cd Tako-Overlay-API
-    ```
-
     ```
 
 2.  Install dependencies:
