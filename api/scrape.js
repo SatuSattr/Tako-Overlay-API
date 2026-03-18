@@ -7,7 +7,18 @@ module.exports = async (req, res) => {
     }
 
     // 2. Parameter validation
-    const { overlay_key, type = 'milestone', api_key: providedApiKey } = req.query;
+    let { overlay_key, type = 'milestone', api_key: providedApiKey } = req.query;
+
+    // Hardening: Validasi tipe agar hanya 'milestone' atau 'leaderboard'
+    const allowedTypes = ['milestone', 'leaderboard'];
+    if (!allowedTypes.includes(type)) {
+        return res.status(400).json({ error: 'Invalid type parameter. Allowed: milestone, leaderboard' });
+    }
+
+    // Hardening: Pastikan overlay_key hanya berisi karakter alfanumerik (mencegah path traversal)
+    if (overlay_key && !/^[a-zA-Z0-9_-]+$/.test(overlay_key)) {
+        return res.status(400).json({ error: 'Invalid overlay_key format.' });
+    }
 
     // 3. Security Layer: API Key Check
     const requiredApiKey = process.env.API_KEY;
