@@ -106,12 +106,3 @@ Since Vercel Hobby plan has limited Cron Jobs, use an external service like **[c
 This lightweight request bypasses Puppeteer and keeps your serverless instance "warm," eliminating Cold Starts.
 
 > 🔴 if you're using this API with <b>plsDonate-Express</b>, this feature is built-in within the plugin itself.
-
-## ⚠️ Important Notes
-
-- **Timeout**: Vercel Hobby plan limit is 10s-15s. Ensure Tako.id loads quickly.
-- **Memory**: Puppeteer requires at least 1024MB RAM for stable execution.
-
-## 📝 License
-
-MIT
