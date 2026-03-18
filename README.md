@@ -9,9 +9,9 @@ A high-performance scraper API for [Tako](https://tako.id) streamer overlays (Mi
 - **Milestone Scraping**: Extracts current amount, target, title, and start time.
 - **Leaderboard Scraping**: Extracts top rankings (name and formatted amount).
 - **Serverless Optimized**: Lightweight Chromium build fits within Vercel's limits.
-- **Security**: 
-    - Optional protection using `api_key` URL parameter.
-    - Input validation for `type` and `overlay_key` (Regex protected).
+- **Security**:
+  - Optional protection using `api_key` URL parameter.
+  - Input validation for `type` and `overlay_key` (Regex protected).
 - **Anti-Bot Measures**: Dynamic **User-Agent Rotation** for every request.
 - **Rate Limiting**: Built-in protection (10 requests/min per instance) to prevent abuse.
 - **CORS Enabled**: `Access-Control-Allow-Origin: *` supported for browser-based requests.
@@ -25,12 +25,14 @@ A high-performance scraper API for [Tako](https://tako.id) streamer overlays (Mi
 ## 📦 Installation
 
 1.  Clone this repository:
+
     ```bash
     git clone https://github.com/SatuSattr/Tako-Overlay-API.git
     cd Tako-Overlay-API
     ```
 
 2.  Install dependencies:
+
     ```bash
     npm install
     ```
@@ -44,6 +46,7 @@ A high-performance scraper API for [Tako](https://tako.id) streamer overlays (Mi
 ## 💻 Local Usage
 
 ### Running the Scraper Directly (CLI)
+
 ```bash
 # Milestone
 node tako-scraper.js milestone "https://tako.id/overlay/milestone?overlay_key=YOUR_KEY"
@@ -53,9 +56,11 @@ node tako-scraper.js leaderboard "https://tako.id/overlay/leaderboard?overlay_ke
 ```
 
 ### Running the API Locally
+
 ```bash
 vercel dev
 ```
+
 API: `http://localhost:3000/api/scrape`
 
 ## 🌍 Deployment to Vercel
@@ -68,16 +73,19 @@ API: `http://localhost:3000/api/scrape`
 ## 📡 API Documentation
 
 ### Endpoint
+
 `GET /api/scrape`
 
 ### Parameters
-| Parameter | Default | Description |
-| :--- | :--- | :--- |
-| `overlay_key` | (Required*) | Unique key from Tako.id. (*Not needed for `type=ping`) |
-| `type` | `milestone` | `milestone`, `leaderboard`, or `ping`. |
-| `api_key` | (Optional) | Required only if `API_KEY` env is set. |
+
+| Parameter     | Default      | Description                                             |
+| :------------ | :----------- | :------------------------------------------------------ |
+| `overlay_key` | (Required\*) | Unique key from Tako.id. (\*Not needed for `type=ping`) |
+| `type`        | `milestone`  | `milestone`, `leaderboard`, or `ping`.                  |
+| `api_key`     | (Optional)   | Required only if `API_KEY` env is set.                  |
 
 ### Example Request
+
 ```bash
 # Scrape Leaderboard
 curl -G "https://your-api.vercel.app/api/scrape" \
@@ -97,9 +105,13 @@ Since Vercel Hobby plan has limited Cron Jobs, use an external service like **[c
 
 This lightweight request bypasses Puppeteer and keeps your serverless instance "warm," eliminating Cold Starts.
 
+> 🔴 if you're using this API with <b>plsDonate-Express</b>, this feature is built-in within the plugin itself.
+
 ## ⚠️ Important Notes
+
 - **Timeout**: Vercel Hobby plan limit is 10s-15s. Ensure Tako.id loads quickly.
 - **Memory**: Puppeteer requires at least 1024MB RAM for stable execution.
 
 ## 📝 License
+
 MIT
