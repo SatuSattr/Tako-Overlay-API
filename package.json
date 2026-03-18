@@ -12,6 +12,7 @@
   "type": "commonjs",
   "dependencies": {
     "@sparticuz/chromium-min": "^143.0.4",
-    "puppeteer-core": "^24.39.1"
+    "puppeteer-core": "^24.39.1",
+    "user-agents": "^2.1.3"
   }
 }

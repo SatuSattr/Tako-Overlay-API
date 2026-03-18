@@ -1,12 +1,38 @@
 const { scrapeTakoMilestone, scrapeTakoLeaderboard } = require('../tako-scraper');
 
+// In-memory store for basic rate limiting (per instance)
+const rateLimit = new Map();
+
 module.exports = async (req, res) => {
-    // 1. Method check
+    // 1. CORS Headers
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, x-api-key');
+
+    if (req.method === 'OPTIONS') {
+        return res.status(200).end();
+    }
+
     if (req.method !== 'GET') {
         return res.status(405).json({ error: 'Method Not Allowed' });
     }
 
-    // 2. Parameter validation
+    // 2. Basic Rate Limiting (10 requests per minute per instance)
+    const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+    const now = Date.now();
+    const windowStart = now - 60000;
+    
+    let userRequests = rateLimit.get(ip) || [];
+    userRequests = userRequests.filter(timestamp => timestamp > windowStart);
+    
+    if (userRequests.length >= 10) {
+        return res.status(429).json({ error: 'Too Many Requests. Please wait a minute.' });
+    }
+    
+    userRequests.push(now);
+    rateLimit.set(ip, userRequests);
+
+    // 3. Parameter validation
     let { overlay_key, type = 'milestone', api_key: providedApiKey } = req.query;
 
     // Hardening: Validasi tipe agar hanya 'milestone' atau 'leaderboard'

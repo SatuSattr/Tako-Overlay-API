@@ -8,5 +8,11 @@
       "source": "/api/scrape",
       "destination": "/api/scrape"
     }
-  ]
+  ],
+  "functions": {
+    "api/scrape.js": {
+      "memory": 1024,
+      "maxDuration": 15
+    }
+  }
 }

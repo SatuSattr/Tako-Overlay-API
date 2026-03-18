@@ -1,5 +1,6 @@
 const chromium = require('@sparticuz/chromium-min');
 const puppeteer = require('puppeteer-core');
+const UserAgent = require('user-agents');
 
 /**
  * Shared browser launcher logic
@@ -34,7 +35,10 @@ async function scrapeTakoMilestone(url) {
     try {
         browser = await getBrowser();
         const page = await browser.newPage();
-        await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36');
+        
+        // Dynamic User-Agent Rotation
+        const userAgent = new UserAgent({ deviceCategory: 'desktop' });
+        await page.setUserAgent(userAgent.toString());
 
         await page.goto(url, { waitUntil: 'networkidle2', timeout: 30000 });
         await page.waitForSelector('iframe', { timeout: 10000 });
@@ -70,7 +74,10 @@ async function scrapeTakoLeaderboard(url) {
     try {
         browser = await getBrowser();
         const page = await browser.newPage();
-        await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36');
+        
+        // Dynamic User-Agent Rotation
+        const userAgent = new UserAgent({ deviceCategory: 'desktop' });
+        await page.setUserAgent(userAgent.toString());
 
         await page.goto(url, { waitUntil: 'networkidle2', timeout: 30000 });
         await page.waitForSelector('iframe', { timeout: 10000 });
