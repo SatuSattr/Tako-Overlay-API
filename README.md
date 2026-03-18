@@ -83,24 +83,27 @@ The API will be available at `http://localhost:3000/api/scrape`.
 
 `GET /api/scrape`
 
-### Headers
-
-| Header      | Value             | Description                                    |
-| :---------- | :---------------- | :--------------------------------------------- |
-| `x-api-key` | `YOUR_SECRET_KEY` | Must match the `API_KEY` environment variable. |
-
 ### Parameters
 
-| Parameter     | Default     | Description                                   |
-| :------------ | :---------- | :-------------------------------------------- |
-| `overlay_key` | (Required)  | The unique key from your Tako.id overlay URL. |
-| `type`        | `milestone` | Can be `milestone` or `leaderboard`.          |
+| Parameter     | Default     | Description                                                                 |
+| :------------ | :---------- | :-------------------------------------------------------------------------- |
+| `overlay_key` | (Required)  | The unique key from your Tako.id overlay URL.                               |
+| `type`        | `milestone` | Can be `milestone` or `leaderboard`.                                        |
+| `api_key`     | (Optional)  | Required **only if** `API_KEY` environment variable is set in the provider. |
 
 ### Example Request
 
 ```bash
-curl -X GET "https://your-project.vercel.app/api/scrape?type=leaderboard&overlay_key=vignbq3i4qekmi4rwaml5keo" \
-     -H "x-api-key: your_secret_api_key_here"
+# With API Key (if configured)
+curl -G "https://your-project.vercel.app/api/scrape" \
+     -d "type=leaderboard" \
+     -d "overlay_key=vignbq3i4qekmi4rwaml5keo" \
+     -d "api_key=your_secret_api_key_here"
+
+# Without API Key (if NO environment variable is set)
+curl -G "https://your-project.vercel.app/api/scrape" \
+     -d "type=milestone" \
+     -d "overlay_key=vignbq3i4qekmi4rwaml5keo"
 ```
 
 ## ⚠️ Important Notes

@@ -6,21 +6,18 @@ module.exports = async (req, res) => {
         return res.status(405).json({ error: 'Method Not Allowed' });
     }
 
-    // 2. Security Layer: API Key Check
-    const apiKey = req.headers['x-api-key'];
-    const validApiKey = process.env.API_KEY;
+    // 2. Parameter validation
+    const { overlay_key, type = 'milestone', api_key: providedApiKey } = req.query;
 
-    if (!validApiKey) {
-        console.error('SERVER ERROR: API_KEY is not set in environment variables.');
-        return res.status(500).json({ error: 'Server configuration error.' });
+    // 3. Security Layer: API Key Check
+    const requiredApiKey = process.env.API_KEY;
+
+    // Hanya cek jika API_KEY didefinisikan di environment variable
+    if (requiredApiKey) {
+        if (!providedApiKey || providedApiKey !== requiredApiKey) {
+            return res.status(401).json({ error: 'Unauthorized: Invalid or missing api_key parameter.' });
+        }
     }
-
-    if (!apiKey || apiKey !== validApiKey) {
-        return res.status(401).json({ error: 'Unauthorized: Invalid or missing API Key.' });
-    }
-
-    // 3. Parameter validation
-    const { overlay_key, type = 'milestone' } = req.query;
 
     if (!overlay_key) {
         return res.status(400).json({ error: 'Missing overlay_key parameter.' });
