@@ -9,7 +9,7 @@ A high-performance scraper API for [Tako](https://tako.id) streamer overlays (Mi
 - **Milestone Scraping**: Extracts current amount, target, title, and start time.
 - **Leaderboard Scraping**: Extracts the top rankings (name and formatted amount) from the custom HTML overlay.
 - **Serverless Optimized**: Uses a lightweight Chromium build to stay within Vercel's 50MB function limit.
-- **Security**: Protected by an `x-api-key` header to prevent unauthorized public access.
+- **Security**: Optional protection using an `api_key` URL parameter to prevent unauthorized public access.
 - **Edge Caching**: Responses are cached for 60 seconds to reduce browser launches and improve speed.
 
 ## 🛠 Prerequisites
