@@ -11,9 +11,9 @@ async function getBrowser() {
     if (isLocal) {
         executablePath = process.env.CHROME_PATH || "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
     } else {
-        // Fix for Vercel: Download chromium from remote if not found locally
+        // Fix for Vercel: Using the explicit 143.0.4 x64 pack
         executablePath = await chromium.executablePath(
-            `https://github.com/Sparticuz/chromium/releases/download/v${await chromium.version}/chromium-v${await chromium.version}-pack.tar`
+            "https://github.com/Sparticuz/chromium/releases/download/v143.0.4/chromium-v143.0.4-pack.x64.tar"
         );
     }
 
